@@ -1,151 +1,44 @@
-# Todo Application
+# Details application 
+contain an `app.js` file and an empty database file `todoApplication.db`.
 
-Given an `app.js` file and an empty database file `todoApplication.db`.
-
-Create a table with the name `todo` with the following columns,
+Created a table with the name `todo` with the following columns,
 
 **Todo Table**
 
 | Column   | Type    |
 | -------- | ------- |
 | id       | INTEGER |
-| todo     | TEXT    |
-| priority | TEXT    |
-| status   | TEXT    |
+| name     | TEXT    |
+| email    | TEXT    |
+| gender   | TEXT    |
 
-and write APIs to perform operations on the table `todo`,
+and written APIs to perform operations on the table `todo`,
 
-<MultiLineNote>
-  
-  - Replace the spaces in URL with `%20`.
-  - Possible values for `priority` are `HIGH`, `MEDIUM`, and `LOW`.
-  - Possible values for `status` are `TO DO`, `IN PROGRESS`, and `DONE`.
-</MultiLineNote>
+
+
 
 ### API 1
 
-#### Path: `/todos/`
-
-#### Method: `GET`
-
-- **Scenario 1**
-
-  - **Sample API**
-    ```
-    /todos/?status=TO%20DO
-    ```
-  - **Description**:
-
-    Returns a list of all todos whose status is 'TO DO'
-
-  - **Response**
-
-    ```
-    [
-      {
-        id: 1,
-        todo: "Watch Movie",
-        priority: "LOW",
-        status: "TO DO"
-      },
-      ...
-    ]
-    ```
-
-- **Scenario 2**
-
-  - **Sample API**
-    ```
-    /todos/?priority=HIGH
-    ```
-  - **Description**:
-
-    Returns a list of all todos whose priority is 'HIGH'
-
-  - **Response**
-
-    ```
-    [
-      {
-        id: 2,
-        todo: "Learn Node JS",
-        priority: "HIGH",
-        status: "IN PROGRESS"
-      },
-      ...
-    ]
-    ```
-
-- **Scenario 3**
-
-  - **Sample API**
-    ```
-    /todos/?priority=HIGH&status=IN%20PROGRESS
-    ```
-  - **Description**:
-
-    Returns a list of all todos whose priority is 'HIGH' and status is 'IN PROGRESS'
-
-  - **Response**
-
-    ```
-    [
-      {
-        id: 2,
-        todo: "Learn Node JS",
-        priority: "HIGH",
-        status: "IN PROGRESS"
-      },
-      ...
-    ]
-    ```
-
-- **Scenario 4**
-
-  - **Sample API**
-    ```
-    /todos/?search_q=Play
-    ```
-  - **Description**:
-
-    Returns a list of all todos whose todo contains 'Play' text
-
-  - **Response**
-
-    ```
-    [
-      {
-        id: 4,
-        todo: "Play volleyball",
-        priority: "MEDIUM",
-        status: "DONE"
-      },
-      ...
-    ]
-    ```
-
-### API 2
-
-#### Path: `/todos/:todoId/`
+#### Path: `/todos/:Id/`
 
 #### Method: `GET`
 
 #### Description:
 
-Returns a specific todo based on the todo ID
+Returns a specific row based on the  ID
 
 #### Response
 
 ```
 {
   id: 2,
-  todo: "Learn JavaScript",
-  priority: "HIGH",
-  status: "DONE"
+  name: "Narayan",
+  email: "narayana@gmail.com",
+  gender: "Male"
 }
 ```
 
-### API 3
+### API 2
 
 #### Path: `/todos/`
 
@@ -153,23 +46,23 @@ Returns a specific todo based on the todo ID
 
 #### Description:
 
-Create a todo in the todo table,
+Create a row in the todo table,
 
 #### Request
 
 ```
 {
-  "id": 10,
-  "todo": "Finalize event theme",
-  "priority": "LOW",
-  "status": "TO DO"
+  "id": 2,
+  "name": "dinesh",
+  "email": "dinesh@gmail.com",
+  "gender": "Male"
 }
 ```
 
 #### Response
 
 ```
-Todo Successfully Added
+Row Successfully Added
 ```
 
 ### API 4
@@ -180,20 +73,20 @@ Todo Successfully Added
 
 #### Description:
 
-Updates the details of a specific todo based on the todo ID
+Updates the details of a specific row based on the ID
 
 - **Scenario 1**
 
   - **Request**
     ```
     {
-      "status": "DONE"
+      "name": "keerti"
     }
     ```
   - **Response**
 
     ```
-    Status Updated
+    name Updated
     ```
 
 - **Scenario 2**
@@ -201,13 +94,13 @@ Updates the details of a specific todo based on the todo ID
   - **Request**
     ```
     {
-      "priority": "HIGH"
+      "email": "keerti@gmail.com"
     }
     ```
   - **Response**
 
     ```
-    Priority Updated
+    email Updated
     ```
 
 - **Scenario 3**
@@ -215,35 +108,31 @@ Updates the details of a specific todo based on the todo ID
   - **Request**
     ```
     {
-      "todo": "Some task"
+      "id": "5"
     }
     ```
   - **Response**
 
     ```
-    Todo Updated
+    id Updated
     ```
 
 ### API 5
 
-#### Path: `/todos/:todoId/`
+#### Path: `/todos/:Id/`
 
 #### Method: `DELETE`
 
 #### Description:
 
-Deletes a todo from the todo table based on the todo ID
+Deletes a row from the todo table based on the row ID
 
 #### Response
 
 ```
-Todo Deleted
+Row Deleted
 ```
 
 <br/>
 
 Use `npm install` to install the packages.
-
-**Export the express instance using the default export syntax.**
-
-**Use Common JS module syntax.**
