@@ -65,7 +65,7 @@ Create a row in the todo table,
 Row Successfully Added
 ```
 
-### API 4
+### API 3
 
 #### Path: `/todos/:todoId/`
 
@@ -117,7 +117,7 @@ Updates the details of a specific row based on the ID
     id Updated
     ```
 
-### API 5
+### API 4
 
 #### Path: `/todos/:Id/`
 
