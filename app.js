@@ -33,72 +33,8 @@ const initializeDbAndServer = async () => {
 
 initializeDbAndServer();
 
-const hasPriorityAndStatusProperties = (requestQuery) => {
-  return (
-    requestQuery.priority !== undefined && requestQuery.status !== undefined
-  );
-};
-
-const hasPriorityProperty = (requestQuery) => {
-  return requestQuery.priority !== undefined;
-};
-
-const hasStatusProperty = (requestQuery) => {
-  return requestQuery.status !== undefined;
-};
-app.get("/todos/", async (request, response) => {
-  let data = null;
-  let getTodosQuery = "";
-  const { search_q = "", priority, status } = request.query;
-
-  switch (true) {
-    case hasPriorityAndStatusProperties(request.query):
-      getTodosQuery = `
-      SELECT
-        *
-      FROM
-        todo 
-      WHERE
-        todo LIKE '%${search_q}%'
-        AND status = '${status}'
-        AND priority = '${priority}';`;
-      break;
-    case hasPriorityProperty(request.query):
-      getTodosQuery = `
-      SELECT
-        *
-      FROM
-        todo 
-      WHERE
-        todo LIKE '%${search_q}%'
-        AND priority = '${priority}';`;
-      break;
-    case hasStatusProperty(request.query):
-      getTodosQuery = `
-      SELECT
-        *
-      FROM
-        todo 
-      WHERE
-        todo LIKE '%${search_q}%'
-        AND status = '${status}';`;
-      break;
-    default:
-      getTodosQuery = `
-      SELECT
-        *
-      FROM
-        todo 
-      WHERE
-        todo LIKE '%${search_q}%';`;
-  }
-
-  data = await database.all(getTodosQuery);
-  response.send(data);
-});
-
-app.get("/todos/:todoId/", async (request, response) => {
-  const { todoId } = request.params;
+app.get("/todos/:Id/", async (request, response) => {
+  const { Id } = request.params;
 
   const getTodoQuery = `
     SELECT
@@ -106,35 +42,35 @@ app.get("/todos/:todoId/", async (request, response) => {
     FROM
       todo
     WHERE
-      id = ${todoId};`;
+      id = ${Id};`;
   const todo = await database.get(getTodoQuery);
   response.send(todo);
 });
 
 app.post("/todos/", async (request, response) => {
-  const { id, todo, priority, status } = request.body;
+  const { id, name, email, gender } = request.body;
   const postTodoQuery = `
   INSERT INTO
-    todo (id, todo, priority, status)
+    todo (id, name, email, gender)
   VALUES
-    (${id}, '${todo}', '${priority}', '${status}');`;
+    (${id}, '${name}', '${email}', '${gender}');`;
   await database.run(postTodoQuery);
   response.send("Todo Successfully Added");
 });
 
-app.put("/todos/:todoId/", async (request, response) => {
-  const { todoId } = request.params;
+app.put("/todos/:Id/", async (request, response) => {
+  const { Id } = request.params;
   let updateColumn = "";
   const requestBody = request.body;
   switch (true) {
     case requestBody.status !== undefined:
-      updateColumn = "Status";
+      updateColumn = "name";
       break;
     case requestBody.priority !== undefined:
-      updateColumn = "Priority";
+      updateColumn = "email";
       break;
     case requestBody.todo !== undefined:
-      updateColumn = "Todo";
+      updateColumn = "gender";
       break;
   }
   const previousTodoQuery = `
@@ -143,39 +79,39 @@ app.put("/todos/:todoId/", async (request, response) => {
     FROM
       todo
     WHERE 
-      id = ${todoId};`;
-  const previousTodo = await database.get(previousTodoQuery);
+      id = ${Id};`;
+  const previous = await database.get(previous);
 
   const {
-    todo = previousTodo.todo,
-    priority = previousTodo.priority,
-    status = previousTodo.status,
+    name = previous.name,
+    email = previous.email,
+    gender = previous.gender,
   } = request.body;
 
-  const updateTodoQuery = `
+  const updateQuery = `
     UPDATE
       todo
     SET
-      todo='${todo}',
-      priority='${priority}',
-      status='${status}'
+      name='${name}',
+      email='${email}',
+      gender='${gender}'
     WHERE
-      id = ${todoId};`;
+      id = ${Id};`;
 
-  await database.run(updateTodoQuery);
+  await database.run(updateQuery);
   response.send(`${updateColumn} Updated`);
 });
 
-app.delete("/todos/:todoId/", async (request, response) => {
-  const { todoId } = request.params;
+app.delete("/todos/:Id/", async (request, response) => {
+  const { Id } = request.params;
   const deleteTodoQuery = `
   DELETE FROM
     todo
   WHERE
-    id = ${todoId};`;
+    id = ${Id};`;
 
   await database.run(deleteTodoQuery);
-  response.send("Todo Deleted");
+  response.send("Row Deleted");
 });
 
 module.exports = app;
