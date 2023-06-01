@@ -1,1 +1,27 @@
-http://localhost:3000/todos/
+GET http://localhost:3000/details/
+###
+
+PUT http://localhost:3000/details/1/
+Content-Type:application/json 
+
+{
+    "id":3,
+    "name":"sowmya",
+    "email":"sowmya@gmail.com",
+    "gender":"female",
+    "status":"inactive"
+}
+
+###
+
+
+POST http://localhost:3000/details/ 
+Content-Type:applcation/json 
+
+{
+    "id":3,
+    "name":"supraja",
+    "email":"supraja@gmail.com",
+    "gender":"female",
+    "status":"active"
+}
