@@ -33,85 +33,38 @@ const initializeDbAndServer = async () => {
 
 initializeDbAndServer();
 
-app.get("/todos/:Id/", async (request, response) => {
-  const { Id } = request.params;
-
-  const getTodoQuery = `
-    SELECT
+app.get("/details/", async (request, response) => {
+  const getDetailQuery = `
+    SELECT 
       *
-    FROM
-      todo
-    WHERE
-      id = ${Id};`;
-  const todo = await database.get(getTodoQuery);
-  response.send(todo);
+    FROM 
+      details`;
+  const detail = await database.all(getDetailQuery);
+  response.send(detail);
 });
 
-app.post("/todos/", async (request, response) => {
-  const { id, name, email, gender } = request.body;
-  const postTodoQuery = `
-  INSERT INTO
-    todo (id, name, email, gender)
-  VALUES
-    (${id}, '${name}', '${email}', '${gender}');`;
-  await database.run(postTodoQuery);
-  response.send("Todo Successfully Added");
-});
-
-app.put("/todos/:Id/", async (request, response) => {
-  const { Id } = request.params;
-  let updateColumn = "";
-  const requestBody = request.body;
-  switch (true) {
-    case requestBody.status !== undefined:
-      updateColumn = "name";
-      break;
-    case requestBody.priority !== undefined:
-      updateColumn = "email";
-      break;
-    case requestBody.todo !== undefined:
-      updateColumn = "gender";
-      break;
-  }
-  const previousTodoQuery = `
-    SELECT
-      *
-    FROM
-      todo
-    WHERE 
-      id = ${Id};`;
-  const previous = await database.get(previous);
-
-  const {
-    name = previous.name,
-    email = previous.email,
-    gender = previous.gender,
-  } = request.body;
-
-  const updateQuery = `
-    UPDATE
-      todo
-    SET
-      name='${name}',
-      email='${email}',
-      gender='${gender}'
-    WHERE
-      id = ${Id};`;
-
-  await database.run(updateQuery);
-  response.send(`${updateColumn} Updated`);
-});
-
-app.delete("/todos/:Id/", async (request, response) => {
-  const { Id } = request.params;
-  const deleteTodoQuery = `
-  DELETE FROM
-    todo
+app.put("/details/:id/", async (request, response) => {
+  const { id } = request.params;
+  const { Name } = request.body;
+  const updateDetailQuery = `
+  UPDATE
+    details
+  SET
+    name ='${Name}'
   WHERE
-    id = ${Id};`;
+    id = ${id};`;
 
-  await database.run(deleteTodoQuery);
-  response.send("Row Deleted");
+  await database.run(updateDetailQuery);
+  response.send("Details Updated");
 });
 
-module.exports = app;
+app.post("/details/", async (request, response) => {
+  const { id, name, email, gender, status } = request.body;
+  const postDetailQuery = `
+  INSERT INTO
+    details (id, name,email,gender,status)
+  VALUES
+    (${id}, '${name}', '${email}','${gender}','${status}');`;
+  await database.run(postDetailQuery);
+  response.send("Details Successfully Added");
+});
