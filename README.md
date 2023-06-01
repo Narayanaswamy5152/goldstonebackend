@@ -3,7 +3,7 @@ contain an `app.js` file and an empty database file `todoApplication.db`.
 
 Created a table with the name `todo` with the following columns,
 
-**Todo Table**
+**details Table**
 
 | Column   | Type    |
 | -------- | ------- |
@@ -19,7 +19,7 @@ and written APIs to perform operations on the table `todo`,
 
 ### API 1
 
-#### Path: `/todos/:Id/`
+#### Path: `/details/:Id/`
 
 #### Method: `GET`
 
@@ -31,8 +31,8 @@ Returns a specific row based on the  ID
 
 ```
 {
-  id: 2,
-  name: "Narayan",
+  id: 1,
+  name: "narayana",
   email: "narayana@gmail.com",
   gender: "Male"
 }
@@ -40,19 +40,19 @@ Returns a specific row based on the  ID
 
 ### API 2
 
-#### Path: `/todos/`
+#### Path: `/details/`
 
-#### Method: `POST`
+#### Method: `PUT`
 
 #### Description:
 
-Create a row in the todo table,
+updates a row in a details table
 
 #### Request
 
 ```
 {
-  "id": 2,
+  "id": 4,
   "name": "dinesh",
   "email": "dinesh@gmail.com",
   "gender": "Male"
@@ -62,77 +62,33 @@ Create a row in the todo table,
 #### Response
 
 ```
-Row Successfully Added
+ Details Updated
 ```
 
 ### API 3
 
-#### Path: `/todos/:todoId/`
+#### Path: `/details/`
 
-#### Method: `PUT`
-
-#### Description:
-
-Updates the details of a specific row based on the ID
-
-- **Scenario 1**
-
-  - **Request**
-    ```
-    {
-      "name": "keerti"
-    }
-    ```
-  - **Response**
-
-    ```
-    name Updated
-    ```
-
-- **Scenario 2**
-
-  - **Request**
-    ```
-    {
-      "email": "keerti@gmail.com"
-    }
-    ```
-  - **Response**
-
-    ```
-    email Updated
-    ```
-
-- **Scenario 3**
-
-  - **Request**
-    ```
-    {
-      "id": "5"
-    }
-    ```
-  - **Response**
-
-    ```
-    id Updated
-    ```
-
-### API 4
-
-#### Path: `/todos/:Id/`
-
-#### Method: `DELETE`
+#### Method: `POST`
 
 #### Description:
 
-Deletes a row from the todo table based on the row ID
+Create a row in the details table,
+
+#### Request
+
+```
+{
+  "id": 4,
+  "name": "dinesh",
+  "email": "dinesh@gmail.com",
+  "gender": "Male"
+}
+```
 
 #### Response
 
 ```
-Row Deleted
+ Details Successfully Added
 ```
 
-<br/>
-
-Use `npm install` to install the packages.
