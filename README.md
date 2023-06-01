@@ -1,7 +1,7 @@
 # Details application 
 contain an `app.js` file and an empty database file `todoApplication.db`.
 
-Created a table with the name `todo` with the following columns,
+Created a table with the name `details` with the following columns,
 
 **details Table**
 
